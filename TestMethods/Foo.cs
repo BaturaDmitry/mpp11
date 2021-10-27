@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
+using mpp1.TracerLib;
 
-namespace mpp1
+namespace mpp1.TestMethods
 {
     public class Foo
     {
-        private Bar _bar;
-        private ITracer _tracer;
+        private readonly Bar _bar;
+        private readonly ITracer _tracer;
 
         public Foo(ITracer tracer)
         {
@@ -31,7 +26,8 @@ namespace mpp1
         public void NotMyMethod()
         {
             _tracer.StartTrace();
-
+            
+            _bar.InnerMethod();
             Thread.Sleep(50);
             _bar.InnerMethod();
 
