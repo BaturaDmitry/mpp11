@@ -1,59 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
+using mpp1.TracerLib;
 using Newtonsoft.Json;
 
-namespace mpp1
+namespace mpp1.Serialization
 {
     public class Record
     {
         [XmlIgnore]
         [JsonIgnore]
-        public int ID;
+        public int Id;
 
         [XmlElement(ElementName = "Thread")]
-        public ThreadRes res;
+        public ThreadRes Res;
 
         public Record(int key, ThreadRes res)
         {
-            ID = key;
-            this.res = res;
+            Id = key;
+            this.Res = res;
         }
         public Record()
         {
         }
     }
 
-    public class Serializers
+    public class SerializersImpl:ITSerializers
     {
 
-        public string toXML(TraceResult result)
+        public string ToXml(TraceResult result)
         {
             List<Record> records = new List<Record>();
-            foreach (int key in result.threads.Keys)
+            foreach (int key in result.Threads.Keys)
             {
-                records.Add(new Record(key, result.threads[key]));
+                records.Add(new Record(key, result.Threads[key]));
             }
 
             XmlSerializer formatter = new XmlSerializer(typeof(List<Record>));
             var stringWriter = new StringWriter();
             formatter.Serialize(stringWriter, records);
-
+            Console.WriteLine(stringWriter.ToString());
             return stringWriter.ToString();
         }
-
-        public string toJSON(TraceResult result)
+        public string ToJson(TraceResult result)
         {
             List<Record> records = new List<Record>();
-            foreach (int key in result.threads.Keys)
+            foreach (int key in result.Threads.Keys)
             {
-                records.Add(new Record(key, result.threads[key]));
+                records.Add(new Record(key, result.Threads[key]));
             }
-            //конвертация с отступом
             string json = JsonConvert.SerializeObject(result, Formatting.Indented);
             return json;
         }
