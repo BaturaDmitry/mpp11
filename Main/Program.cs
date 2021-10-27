@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization.Json;
-using System.Threading;
-
-namespace mpp1
+﻿using System.Threading;
+using mpp1.Serialization;
+using mpp1.TestMethods;
+using mpp1.TracerLib;
+using mpp1.WriterLib;
+namespace mpp1.Main
 {
     class Program
     {
@@ -29,17 +26,15 @@ namespace mpp1
 
             
             var writer = new Writer();
-            var serialize = new Serializers();
+            var serialize = new SerializersImpl();
 
-            string outRes = serialize.toXML(res);            
-            writer.toConsole(outRes);
-            writer.toFile(outRes, "xml.txt");
+            string outRes = serialize.ToXml(res);            
+            writer.ToConsole(outRes);
+            writer.ToFile(outRes, "xmlFile.txt");
 
-            outRes = serialize.toJSON(res);
-            writer.toConsole(outRes);
-
-            
-
+            outRes = serialize.ToJson(res);
+            writer.ToConsole(outRes);
+            writer.ToFile(outRes, "jsonFile.txt");
         }
     }
 }
