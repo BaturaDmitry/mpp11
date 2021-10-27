@@ -1,4 +1,4 @@
-﻿namespace mpp1
+﻿namespace mpp1.TracerLib
 {
     public interface ITracer
     {
