@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
+using mpp1.TracerLib;
 
-namespace mpp1
+namespace mpp1.TestMethods
 {
-    class Bar
+    public class Bar
     {
         private ITracer _tracer;
 
-        internal Bar(ITracer tracer)
+        public Bar(ITracer tracer)
         {
             _tracer = tracer;
         }
@@ -22,9 +17,7 @@ namespace mpp1
             _tracer.StartTrace();
 
             Thread.Sleep(24);
-
             
-
             _tracer.StopTrace();
         }
     }
